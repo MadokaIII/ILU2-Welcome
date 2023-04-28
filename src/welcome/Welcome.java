@@ -17,6 +17,7 @@ public class Welcome {
     }
 
     public static String welcome(String input){
+        if (input != null && !"".equals(input.trim()) && input.toUpperCase().equals(input)) return HELLO.toUpperCase() + friend(input).toUpperCase() + " !";
         return HELLO + friend(input);
     }
 
