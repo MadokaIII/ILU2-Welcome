@@ -12,4 +12,11 @@ class WelcomeTest {
         assertEquals("Hello, Kate", Welcome.welcome("Kate"));
     }
 
+    @Test
+    void answerNone(){
+        assertEquals("Hello, my friend", Welcome.welcome(""));
+        assertEquals("Hello, my friend", Welcome.welcome("    "));
+        assertEquals("Hello, my friend", Welcome.welcome(null));
+    }
+
 }
