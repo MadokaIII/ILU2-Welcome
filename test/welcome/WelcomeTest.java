@@ -10,6 +10,8 @@ class WelcomeTest {
     void answerName(){
         assertEquals("Hello, Joe", Welcome.welcome("joe"));
         assertEquals("Hello, Kate", Welcome.welcome("Kate"));
+        assertEquals("Hello, Joe", Welcome.welcome(" joe "));
+        assertEquals("Hello, Kate", Welcome.welcome(" Kate "));
     }
 
     @Test

@@ -9,9 +9,15 @@ public class Welcome {
         return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 
+    private static String friend(String input){
+        if (input == null || "".equals(input.trim())){
+            return FRIEND;
+        }
+        else return capitalize(input.trim());
+    }
+
     public static String welcome(String input){
-        if(input == null || input.equals("    ") || input.equals("")) return HELLO + FRIEND;
-        return HELLO + capitalize(input);
+        return HELLO + friend(input);
     }
 
 }
