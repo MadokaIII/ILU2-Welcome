@@ -9,6 +9,7 @@ class WelcomeTest {
     @Test
     void answerName(){
         assertEquals("Hello, Joe", Welcome.welcome("joe"));
+        assertEquals("Hello, Kate", Welcome.welcome("Kate"));
     }
 
 }
