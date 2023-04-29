@@ -36,9 +36,17 @@ class WelcomeTest {
         assertEquals("Hello, Joe, Kate", Welcome.welcome(" joe,kate "));
         assertEquals("Hello, Kate, Joe", Welcome.welcome(" kate,joe "));
         assertEquals("Hello, Joe, Kate, Love", Welcome.welcome("joe,kate,Love"));
-        assertEquals("Hello, Joe, Kate, Love", Welcome.welcome("joe,kate,Love"));
+        assertEquals("Hello, Kate, Joe, Love", Welcome.welcome("kate,joe,Love"));
+        assertEquals("Hello, Kate, Joe, Love", Welcome.welcome(" Kate,Joe,Love "));
         assertEquals("Hello, Joe, Kate, Love", Welcome.welcome(" joe,kate,Love "));
-        assertEquals("Hello, Joe, Kate, Love", Welcome.welcome(" joe,kate,Love "));
+    }
+
+    @Test
+    void answerYells(){
+        assertEquals("HELLO, JOE, KATE, LOVE !", Welcome.welcome("JOE,KATE,LOVE"));
+        assertEquals("HELLO, LOVE, KATE, JOE !", Welcome.welcome("LOVE,KATE,JOE"));
+        assertEquals("HELLO, KATE, JOE, LOVE !", Welcome.welcome(" KATE,JOE,LOVE "));
+        assertEquals("HELLO, JOE, KATE, LOVE !", Welcome.welcome(" JOE,KATE,LOVE "));
     }
 
 }
