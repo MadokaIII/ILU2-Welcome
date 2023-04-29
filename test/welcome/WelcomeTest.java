@@ -31,22 +31,22 @@ class WelcomeTest {
 
     @Test
     void answerNames(){
-        assertEquals("Hello, Joe, Kate", Welcome.welcome("joe,kate"));
-        assertEquals("Hello, Kate, Joe", Welcome.welcome("Kate,joe"));
-        assertEquals("Hello, Joe, Kate", Welcome.welcome(" joe,kate "));
-        assertEquals("Hello, Kate, Joe", Welcome.welcome(" kate,joe "));
-        assertEquals("Hello, Joe, Kate, Love", Welcome.welcome("joe,kate,Love"));
-        assertEquals("Hello, Kate, Joe, Love", Welcome.welcome("kate,joe,Love"));
-        assertEquals("Hello, Kate, Joe, Love", Welcome.welcome(" Kate,Joe,Love "));
-        assertEquals("Hello, Joe, Kate, Love", Welcome.welcome(" joe,kate,Love "));
+        assertEquals("Hello, Joe, and Kate", Welcome.welcome("joe,kate"));
+        assertEquals("Hello, Kate, and Joe", Welcome.welcome("Kate,joe"));
+        assertEquals("Hello, Joe, and Kate", Welcome.welcome(" joe,kate "));
+        assertEquals("Hello, Kate, and Joe", Welcome.welcome(" kate,joe "));
+        assertEquals("Hello, Joe, Kate, and Love", Welcome.welcome("joe,kate,Love"));
+        assertEquals("Hello, Kate, Joe, and Love", Welcome.welcome("kate,joe,Love"));
+        assertEquals("Hello, Kate, Joe, and Love", Welcome.welcome(" Kate,Joe,Love "));
+        assertEquals("Hello, Joe, Kate, and Love", Welcome.welcome(" joe,kate,Love "));
     }
 
     @Test
     void answerYells(){
-        assertEquals("HELLO, JOE, KATE, LOVE !", Welcome.welcome("JOE,KATE,LOVE"));
-        assertEquals("HELLO, LOVE, KATE, JOE !", Welcome.welcome("LOVE,KATE,JOE"));
-        assertEquals("HELLO, KATE, JOE, LOVE !", Welcome.welcome(" KATE,JOE,LOVE "));
-        assertEquals("HELLO, JOE, KATE, LOVE !", Welcome.welcome(" JOE,KATE,LOVE "));
+        assertEquals("HELLO, JOE, KATE, AND LOVE !", Welcome.welcome("JOE,KATE,LOVE"));
+        assertEquals("HELLO, LOVE, KATE, AND JOE !", Welcome.welcome("LOVE,KATE,JOE"));
+        assertEquals("HELLO, KATE, JOE, AND LOVE !", Welcome.welcome(" KATE,JOE,LOVE "));
+        assertEquals("HELLO, JOE, KATE, AND LOVE !", Welcome.welcome(" JOE,KATE,LOVE "));
     }
 
 }
