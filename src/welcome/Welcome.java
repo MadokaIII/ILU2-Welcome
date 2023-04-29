@@ -35,24 +35,43 @@ public class Welcome {
 
     }
 
-    public static String welcome(String input){
-        StringBuilder str = new StringBuilder();
+    private static String getHello(boolean yell) {
+        if (yell) {
+            return HELLO.toUpperCase();
+        } else {
+            return HELLO;
+        }
+    }
+
+    private static String getSeparatorString(int namesLength, boolean yell) {
+        if (namesLength == 1) {
+            return ", ";
+        } else if (yell) {
+            return ", AND ";
+        } else {
+            return ", and ";
+        }
+    }
+
+    private static String getEnd(boolean yell) {
+        if (yell) {
+            return " !";
+        } else {
+            return "";
+        }
+    }
+
+    public static String welcome(String input) {
         boolean yell = yell(friend(input));
         String[] names = friend(input).split(",");
-        if (yell) {
-            str.append(HELLO.toUpperCase());
-            for(String name : names){
-                str.append(", ");
-                addName(str, name, yell);
-            }
-            str.append(" !");
-        } else {
-            str.append(HELLO);
-            for(String name : names){
-                str.append(", ");
-                addName(str, name, yell);
-            }
+        StringBuilder str = new StringBuilder(getHello(yell));
+        for (int i = 0; i < names.length - 1; i++) {
+            str.append(", ");
+            addName(str, names[i], yell);
         }
+        str.append(getSeparatorString(names.length, yell));
+        addName(str, names[names.length - 1], yell);
+        str.append(getEnd(yell));
         return str.toString();
     }
 
