@@ -46,7 +46,7 @@ class WelcomeTest {
         assertEquals("HELLO, JOE, KATE, AND LOVE !", Welcome.welcome("JOE, KATE, LOVE"));
         assertEquals("HELLO, LOVE, KATE, AND JOE !", Welcome.welcome("LOVE ,KATE,  JOE"));
         assertEquals("HELLO, KATE, JOE, AND LOVE !", Welcome.welcome(" KATE,  JOE  ,LOVE "));
-        assertEquals("HELLO, JOE, KATE, AND LOVE !", Welcome.welcome(" JOE, KATE,L OVE "));
+        assertEquals("HELLO, JOE, KATE, AND LOVE !", Welcome.welcome(" JOE, KATE,  LOVE "));
     }
 
 }

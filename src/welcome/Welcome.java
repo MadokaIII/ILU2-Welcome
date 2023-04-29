@@ -61,9 +61,20 @@ public class Welcome {
         }
     }
 
+    public static String[] trimNames(String[] input){
+        if (input.length == 1) {
+            return input;
+        }
+        String[] names = new String[input.length];
+        for (int i = 0; i < input.length; i++)
+            names[i] = input[i].trim();
+        return names;
+    }
+
     public static String welcome(String input) {
         boolean yell = yell(friend(input));
         String[] names = friend(input).split(",");
+        names = trimNames(names);
         StringBuilder str = new StringBuilder(getHello(yell));
         for (int i = 0; i < names.length - 1; i++) {
             str.append(", ");
