@@ -61,4 +61,14 @@ class WelcomeTest {
                 Welcome.welcome("lOVE, joe, Joe, love ,Kate, LOVE, LOVE"));
     }
 
+    @Test
+    void answerYoda(){
+        assertEquals("Yoda, Hello.", Welcome.welcome("yoda"));
+        assertEquals("Yoda (x3), Hello.", Welcome.welcome("yoda,yoda,yoda"));
+        assertEquals("Yoda (x3), Joe, Kate (x2), Hello. AND HELLO, LOVE (x3) !",
+                Welcome.welcome("lOVE, kate, Joe,Kate, Yoda, LOVE, LOVE, Yoda , yoda"));
+        assertEquals("Yoda, Joe, Kate (x2), Hello. AND YODA (x2), LOVE (x3), HELLO !",
+                Welcome.welcome("lOVE, kate, Joe,Kate, Yoda, LOVE, LOVE, YODA , YODA"));
+    }
+
 }
