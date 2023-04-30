@@ -1,5 +1,9 @@
 package welcome;
 
+import javafx.util.Pair;
+
+import java.util.*;
+
 public class Welcome {
 
     private static final String HELLO = "Hello";
@@ -20,69 +24,79 @@ public class Welcome {
     }
 
     private static void addName(StringBuilder str, String input, boolean yell) {
-        switch (input) {
-            case FRIEND -> {
-                str.append(FRIEND);
-            }
-            default -> {
-                if (yell){
-                    str.append(capitalize(input).toUpperCase());
-                } else {
-                    str.append(capitalize(input));
-                }
+        if (input.equals(FRIEND)) {
+            str.append(FRIEND);
+        } else {
+            if (yell) {
+                str.append(capitalize(input).toUpperCase().replaceAll("\\s*\\(X", " (x"));
+            } else {
+                str.append(capitalize(input));
             }
         }
-
     }
 
     private static String getHello(boolean yell) {
-        if (yell) {
-            return HELLO.toUpperCase();
-        } else {
-            return HELLO;
-        }
+        return yell ? HELLO.toUpperCase() : HELLO;
     }
 
     private static String getSeparatorString(int namesLength, boolean yell) {
-        if (namesLength == 1) {
+        if (namesLength == 1)
             return ", ";
-        } else if (yell) {
-            return ", AND ";
-        } else {
-            return ", and ";
-        }
+        return yell ? ", AND " : ", and ";
     }
 
     private static String getEnd(boolean yell) {
-        if (yell) {
-            return " !";
-        } else {
-            return "";
-        }
+        return yell ? " !" : ".";
     }
 
-    public static String[] trimNames(String[] input){
-        if (input.length == 1) {
-            return input;
+    private static List<String> trimNames(String[] input) {
+        return Arrays.stream(input).map(String::trim).toList();
+    }
+
+    public static Pair<List<String>, List<String>> getUniqueNames(List<String> names) {
+        List<String> normalNames = new ArrayList<>();
+        List<String> yelledNames = new ArrayList<>();
+        Pair<List<String>, List<String>> pair = new Pair<>(normalNames, yelledNames);
+        Set<String> uniqueNames = new HashSet<>();
+        for (String name : names) {
+            String uniquename = yell(name) ? name : name.toLowerCase();
+            if (uniqueNames.add(uniquename)) {
+                int count = Collections.frequency(names.stream()
+                        .map(str -> yell(str) ? str : str.toLowerCase()).toList(), uniquename);
+                String newName = count == 1 ? name : name + " (x" + count + ")";
+                (yell(name) ? yelledNames : normalNames).add(newName);
+            }
         }
-        String[] names = new String[input.length];
-        for (int i = 0; i < input.length; i++)
-            names[i] = input[i].trim();
-        return names;
+        return pair;
+    }
+
+    private static void makeString(List<String> names, boolean yell, StringBuilder str) {
+        String hello = getHello(yell);
+        String separatorString = getSeparatorString(names.size(), yell);
+        String end = getEnd(yell);
+        str.append(hello);
+        for (int i = 0; i < names.size() - 1; i++) {
+            str.append(", ");
+            addName(str, names.get(i), yell);
+        }
+        str.append(separatorString);
+        addName(str, names.get(names.size() - 1), yell);
+        str.append(end);
     }
 
     public static String welcome(String input) {
-        boolean yell = yell(friend(input));
-        String[] names = friend(input).split(",");
-        names = trimNames(names);
-        StringBuilder str = new StringBuilder(getHello(yell));
-        for (int i = 0; i < names.length - 1; i++) {
-            str.append(", ");
-            addName(str, names[i], yell);
+        List<String> names = trimNames(friend(input).split(","));
+        Pair<List<String>, List<String>> pair = getUniqueNames(names);
+        StringBuilder str = new StringBuilder();
+        if (!pair.getKey().isEmpty()) {
+            makeString(pair.getKey(), false, str);
         }
-        str.append(getSeparatorString(names.length, yell));
-        addName(str, names[names.length - 1], yell);
-        str.append(getEnd(yell));
+        if (!pair.getValue().isEmpty()) {
+            if (!str.isEmpty()) {
+                str.append(" AND ");
+            }
+            makeString(pair.getValue(), true, str);
+        }
         return str.toString();
     }
 
