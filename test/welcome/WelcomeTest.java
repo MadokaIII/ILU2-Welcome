@@ -55,8 +55,8 @@ class WelcomeTest {
         assertEquals("HELLO, JOE (x2), AND KATE !", Welcome.welcome("JOE,JOE,KATE"));
         assertEquals("Hello, Kate, and Joe (x2).", Welcome.welcome("kate,joe,joe"));
         assertEquals("HELLO, KATE (x2), AND JOE !", Welcome.welcome("KATE,JOE,KATE"));
-        assertEquals("Hello, Joe (x2), and Kate. AND HELLO, LOVE (x3) !",
-                Welcome.welcome("lOVE, joe, Joe,Kate, LOVE, LOVE"));
+        assertEquals("Hello, Joe (x2), and Kate. AND HELLO, LOVE (x3), AND BECK !",
+                Welcome.welcome("lOVE, joe, Joe,Kate, LOVE, LOVE, BECK"));
         assertEquals("Hello, Joe (x2), Love, and Kate. AND HELLO, LOVE (x3) !",
                 Welcome.welcome("lOVE, joe, Joe, love ,Kate, LOVE, LOVE"));
     }
@@ -65,9 +65,9 @@ class WelcomeTest {
     void answerYoda(){
         assertEquals("Yoda, Hello.", Welcome.welcome("yoda"));
         assertEquals("Yoda (x3), Hello.", Welcome.welcome("yoda,yoda,yoda"));
-        assertEquals("Yoda (x3), Joe, Kate (x2), Hello. AND HELLO, LOVE (x3) !",
+        assertEquals("Yoda (x3), Joe, and Kate (x2), Hello. AND HELLO, LOVE (x3) !",
                 Welcome.welcome("lOVE, kate, Joe,Kate, Yoda, LOVE, LOVE, Yoda , yoda"));
-        assertEquals("Yoda, Joe, Kate (x2), Hello. AND YODA (x2), LOVE (x3), HELLO !",
+        assertEquals("Yoda, Joe, and Kate (x2), Hello. AND YODA (x2), AND LOVE (x3), HELLO !",
                 Welcome.welcome("lOVE, kate, Joe,Kate, Yoda, LOVE, LOVE, YODA , YODA"));
     }
 

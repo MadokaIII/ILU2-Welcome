@@ -74,13 +74,29 @@ public class Welcome {
         String hello = getHello(yell);
         String separatorString = getSeparatorString(names.size(), yell);
         String end = getEnd(yell);
-        str.append(hello);
-        for (int i = 0; i < names.size() - 1; i++) {
-            str.append(", ");
-            addName(str, names.get(i), yell);
+        if (names.stream().map(name -> name.toLowerCase().replaceAll("\\s*\\(x\\d+\\)", ""))
+                .toList().contains("yoda")){
+            Collections.reverse(names);
+            addName(str, names.get(0), yell);
+            for (int i = 1; i < names.size() - 1; i++) {
+                str.append(", ");
+                addName(str, names.get(i), yell);
+            }
+            str.append(separatorString);
+            if (names.size() != 1) {
+                addName(str, names.get(names.size() - 1), yell);
+                str.append(", ");
+            }
+            str.append(hello);
+        } else {
+            str.append(hello);
+            for (int i = 0; i < names.size() - 1; i++) {
+                str.append(", ");
+                addName(str, names.get(i), yell);
+            }
+            str.append(separatorString);
+            addName(str, names.get(names.size() - 1), yell);
         }
-        str.append(separatorString);
-        addName(str, names.get(names.size() - 1), yell);
         str.append(end);
     }
 
