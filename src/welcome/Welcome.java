@@ -59,10 +59,10 @@ public class Welcome {
         Pair<List<String>, List<String>> pair = new Pair<>(normalNames, yelledNames);
         Set<String> uniqueNames = new HashSet<>();
         for (String name : names) {
-            String uniquename = yell(name) ? name : name.toLowerCase();
-            if (uniqueNames.add(uniquename)) {
+            String uniqueName = yell(name) ? name : name.toLowerCase();
+            if (uniqueNames.add(uniqueName)) {
                 int count = Collections.frequency(names.stream()
-                        .map(str -> yell(str) ? str : str.toLowerCase()).toList(), uniquename);
+                        .map(str -> yell(str) ? str : str.toLowerCase()).toList(), uniqueName);
                 String newName = count == 1 ? name : name + " (x" + count + ")";
                 (yell(name) ? yelledNames : normalNames).add(newName);
             }
@@ -70,48 +70,42 @@ public class Welcome {
         return pair;
     }
 
-    private static void makeString(List<String> names, boolean yell, StringBuilder str) {
+    private static String makeString(List<String> names, boolean yell) {
+        StringBuilder str = new StringBuilder();
         String hello = getHello(yell);
         String separatorString = getSeparatorString(names.size(), yell);
         String end = getEnd(yell);
-        if (names.stream().map(name -> name.toLowerCase().replaceAll("\\s*\\(x\\d+\\)", ""))
-                .toList().contains("yoda")){
+        boolean yoda = names.stream().map(name -> name.toLowerCase()
+                .replaceAll("\\s*\\(x\\d+\\)", "")).toList().contains("yoda");
+        if (yoda)
             Collections.reverse(names);
-            addName(str, names.get(0), yell);
-            for (int i = 1; i < names.size() - 1; i++) {
-                str.append(", ");
-                addName(str, names.get(i), yell);
+        for (int i = 0; i < names.size(); i++) {
+            if (i != 0) {
+                str.append(i == names.size() - 1 ? separatorString : ", ");
             }
-            str.append(separatorString);
-            if (names.size() != 1) {
-                addName(str, names.get(names.size() - 1), yell);
-                str.append(", ");
-            }
-            str.append(hello);
-        } else {
-            str.append(hello);
-            for (int i = 0; i < names.size() - 1; i++) {
-                str.append(", ");
-                addName(str, names.get(i), yell);
-            }
-            str.append(separatorString);
-            addName(str, names.get(names.size() - 1), yell);
+            addName(str, names.get(i), yell);
         }
+        if(!yoda)
+            str.insert(0, hello + ", ");
+        else
+            str.append(", " + hello);
         str.append(end);
+        return str.toString();
     }
+
 
     public static String welcome(String input) {
         List<String> names = trimNames(friend(input).split(","));
         Pair<List<String>, List<String>> pair = getUniqueNames(names);
         StringBuilder str = new StringBuilder();
         if (!pair.getKey().isEmpty()) {
-            makeString(pair.getKey(), false, str);
+            str.append(makeString(pair.getKey(), false));
         }
         if (!pair.getValue().isEmpty()) {
             if (!str.isEmpty()) {
                 str.append(" AND ");
             }
-            makeString(pair.getValue(), true, str);
+            str.append(makeString(pair.getValue(), true));
         }
         return str.toString();
     }
